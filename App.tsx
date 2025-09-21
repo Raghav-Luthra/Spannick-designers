@@ -219,7 +219,7 @@ const App: React.FC = () => {
         {!modelImageUrl ? (
           <motion.div
             key="start-screen"
-            className="w-screen min-h-screen flex items-start sm:items-center justify-center bg-gray-50 p-4 pb-20"
+            className="w-screen min-h-screen flex items-start sm:items-center justify-center p-4 pb-20 perspective-luxury"
             variants={viewVariants}
             initial="initial"
             animate="animate"
@@ -231,7 +231,7 @@ const App: React.FC = () => {
         ) : (
           <motion.div
             key="main-app"
-            className="relative flex flex-col h-screen bg-white overflow-hidden"
+            className="relative flex flex-col h-screen overflow-hidden"
             variants={viewVariants}
             initial="initial"
             animate="animate"
@@ -239,7 +239,7 @@ const App: React.FC = () => {
             transition={{ duration: 0.5, ease: 'easeInOut' }}
           >
             <main className="flex-grow relative flex flex-col md:flex-row overflow-hidden">
-              <div className="w-full h-full flex-grow flex items-center justify-center bg-white pb-16 relative">
+              <div className="w-full h-full flex-grow flex items-center justify-center pb-16 relative">
                 <Canvas 
                   displayImageUrl={displayImageUrl}
                   onStartOver={handleStartOver}
@@ -253,20 +253,20 @@ const App: React.FC = () => {
               </div>
 
               <aside 
-                className={`absolute md:relative md:flex-shrink-0 bottom-0 right-0 h-auto md:h-full w-full md:w-1/3 md:max-w-sm bg-white/80 backdrop-blur-md flex flex-col border-t md:border-t-0 md:border-l border-gray-200/60 transition-transform duration-500 ease-in-out ${isSheetCollapsed ? 'translate-y-[calc(100%-4.5rem)]' : 'translate-y-0'} md:translate-y-0`}
+                className={`absolute md:relative md:flex-shrink-0 bottom-0 right-0 h-auto md:h-full w-full md:w-1/3 md:max-w-sm glass-luxury backdrop-blur-xl flex flex-col border-t md:border-t-0 md:border-l border-gold-500/20 transition-transform duration-500 ease-in-out ${isSheetCollapsed ? 'translate-y-[calc(100%-4.5rem)]' : 'translate-y-0'} md:translate-y-0 luxury-glow`}
                 style={{ transitionProperty: 'transform' }}
               >
                   <button 
                     onClick={() => setIsSheetCollapsed(!isSheetCollapsed)} 
-                    className="md:hidden w-full h-8 flex items-center justify-center bg-gray-100/50"
+                    className="md:hidden w-full h-10 flex items-center justify-center glass-luxury border-b border-gold-500/20"
                     aria-label={isSheetCollapsed ? 'Expand panel' : 'Collapse panel'}
                   >
-                    {isSheetCollapsed ? <ChevronUpIcon className="w-6 h-6 text-gray-500" /> : <ChevronDownIcon className="w-6 h-6 text-gray-500" />}
+                    {isSheetCollapsed ? <ChevronUpIcon className="w-6 h-6 text-gold-400" /> : <ChevronDownIcon className="w-6 h-6 text-gold-400" />}
                   </button>
                   <div className="p-4 md:p-6 pb-20 overflow-y-auto flex-grow flex flex-col gap-8">
                     {error && (
-                      <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
-                        <p className="font-bold">Error</p>
+                      <div className="glass-luxury border-l-4 border-red-400 text-red-300 p-4 mb-4 rounded-xl luxury-glow" role="alert">
+                        <p className="font-bold font-serif">Error</p>
                         <p>{error}</p>
                       </div>
                     )}
@@ -286,14 +286,14 @@ const App: React.FC = () => {
             <AnimatePresence>
               {isLoading && isMobile && (
                 <motion.div
-                  className="fixed inset-0 bg-white/80 backdrop-blur-md flex flex-col items-center justify-center z-50"
+                  className="fixed inset-0 glass-luxury backdrop-blur-xl flex flex-col items-center justify-center z-50 luxury-glow-intense"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
                   <Spinner />
                   {loadingMessage && (
-                    <p className="text-lg font-serif text-gray-700 mt-4 text-center px-4">{loadingMessage}</p>
+                    <p className="text-lg font-serif gold-accent mt-6 text-center px-4 tracking-wide">{loadingMessage}</p>
                   )}
                 </motion.div>
               )}

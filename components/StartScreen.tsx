@@ -5,7 +5,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UploadCloudIcon, SparklesIcon } from './icons';
+import { UploadCloudIcon } from './icons';
 import { Compare } from './ui/compare';
 import { generateModelImage } from '../services/geminiService';
 import Spinner from './Spinner';
@@ -71,87 +71,91 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
       {!userImageUrl ? (
         <motion.div
           key="uploader"
-          className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 perspective-container"
+          className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 perspective-luxury"
           variants={screenVariants}
           initial="initial"
           animate="animate"
           exit="exit"
           transition={{ duration: 0.4, ease: "easeInOut" }}
         >
-          <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left card-3d p-8 rounded-2xl">
+          <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left luxury-card-3d p-12 rounded-3xl">
             <div className="max-w-2xl">
               <div className="flex items-center justify-center lg:justify-start mb-4">
-                <SparklesIcon className="w-8 h-8 text-gold-500 mr-3 animate-float" />
-                <span className="text-gold-500 font-semibold tracking-wider uppercase text-sm">Luxury Fashion Experience</span>
+                <div className="w-3 h-3 bg-gold-500 rounded-full mr-3 animate-luxury-float luxury-glow"></div>
+                <span className="gold-accent font-serif font-semibold tracking-[0.2em] uppercase text-sm">Bespoke Fashion Experience</span>
               </div>
-              <h1 className="text-6xl md:text-7xl font-serif font-black luxury-heading leading-tight mb-6">
-                Elevate Your Style with Spannick Designers
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold luxury-heading leading-[0.9] mb-8">
+                SPANNICK
+                <br />
+                <span className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[0.3em] text-gold-400">DESIGNERS</span>
               </h1>
-              <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                Experience the future of luxury menswear. Upload your photo and witness our AI craft your personal fashion model, ready to showcase our exclusive collection with unprecedented realism.
+              <p className="text-lg md:text-xl text-platinum-200 leading-relaxed mb-10 font-light">
+                Where tradition meets innovation. Upload your photograph and witness our atelier's AI craft your personal fashion avatar, ready to showcase our exclusive menswear collection with unparalleled sophistication.
               </p>
-              <div className="w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-600 mx-auto lg:mx-0 mb-8"></div>
+              <div className="w-32 h-0.5 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500 mx-auto lg:mx-0 mb-10 luxury-glow"></div>
               <div className="flex flex-col items-center lg:items-start w-full gap-4">
-                <label htmlFor="image-upload-start" className="w-full relative flex items-center justify-center px-10 py-4 text-lg font-bold luxury-button rounded-xl cursor-pointer group transition-all duration-300">
-                  <UploadCloudIcon className="w-5 h-5 mr-3" />
-                  Begin Your Transformation
+                <label htmlFor="image-upload-start" className="w-full relative flex items-center justify-center px-12 py-5 text-base font-bold luxury-button-primary rounded-2xl cursor-pointer group transition-all duration-300">
+                  <UploadCloudIcon className="w-6 h-6 mr-4" />
+                  BEGIN YOUR TRANSFORMATION
                 </label>
                 <input id="image-upload-start" type="file" className="hidden" accept="image/png, image/jpeg, image/webp, image/avif, image/heic, image/heif" onChange={handleFileChange} />
-                <p className="text-gray-400 text-base text-center lg:text-left">Select a clear, full-body photograph. Portrait shots are acceptable, though full-body images yield optimal results for our luxury fitting experience.</p>
-                <p className="text-gray-500 text-sm mt-2 text-center lg:text-left">By proceeding, you consent to responsible and lawful use of our premium AI styling service.</p>
-                {error && <p className="text-red-400 text-base mt-3 p-3 bg-red-900/20 rounded-lg border border-red-500/30">{error}</p>}
+                <p className="text-platinum-300 text-base text-center lg:text-left font-light leading-relaxed">Select a clear, full-body photograph. Portrait compositions are acceptable, though full-body images yield optimal results for our luxury fitting experience.</p>
+                <p className="text-platinum-400 text-sm mt-2 text-center lg:text-left font-light">By proceeding, you consent to responsible and lawful use of our premium AI styling atelier.</p>
+                {error && <p className="text-red-300 text-base mt-4 p-4 glass-luxury rounded-xl border border-red-400/30 luxury-glow">{error}</p>}
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center perspective-container">
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center perspective-luxury">
             <Compare
               firstImage="https://storage.googleapis.com/gemini-95-icons/asr-tryon.jpg"
               secondImage="https://storage.googleapis.com/gemini-95-icons/asr-tryon-model.png"
               slideMode="drag"
-              className="w-full max-w-sm aspect-[2/3] rounded-3xl bg-black/20 border-2 border-gold-500/30 shadow-2xl luxury-card"
+              className="w-full max-w-sm aspect-[2/3] rounded-3xl bg-black/30 border-2 border-gold-500/40 shadow-2xl luxury-card-3d luxury-glow"
             />
             <div className="mt-6 text-center">
-              <p className="text-gold-500 font-semibold text-sm uppercase tracking-wider">Drag to Compare</p>
-              <p className="text-gray-400 text-xs mt-1">See the transformation in real-time</p>
+              <p className="gold-accent font-serif font-semibold text-sm uppercase tracking-[0.2em]">Drag to Compare</p>
+              <p className="text-platinum-300 text-xs mt-2 font-light">Witness the transformation in real-time</p>
             </div>
           </div>
         </motion.div>
       ) : (
         <motion.div
           key="compare"
-          className="w-full max-w-7xl mx-auto h-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 perspective-container"
+          className="w-full max-w-7xl mx-auto h-full flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 perspective-luxury"
           variants={screenVariants}
           initial="initial"
           animate="animate"
           exit="exit"
           transition={{ duration: 0.4, ease: "easeInOut" }}
         >
-          <div className="md:w-1/2 flex-shrink-0 flex flex-col items-center md:items-start card-3d p-8 rounded-2xl">
+          <div className="md:w-1/2 flex-shrink-0 flex flex-col items-center md:items-start luxury-card-3d p-10 rounded-3xl">
             <div className="text-center md:text-left max-w-lg">
               <div className="flex items-center justify-center md:justify-start mb-4">
-                <SparklesIcon className="w-6 h-6 text-gold-500 mr-2 animate-float" />
-                <span className="text-gold-500 font-semibold tracking-wider uppercase text-xs">Transformation Complete</span>
+                <div className="w-2 h-2 bg-gold-500 rounded-full mr-3 animate-luxury-float luxury-glow"></div>
+                <span className="gold-accent font-serif font-semibold tracking-[0.2em] uppercase text-xs">Transformation Complete</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-serif font-black luxury-heading leading-tight mb-4">
-                Your Luxury Avatar
+              <h1 className="text-4xl md:text-6xl font-serif font-bold luxury-heading leading-tight mb-6">
+                Your Bespoke
+                <br />
+                <span className="text-3xl md:text-4xl font-light tracking-[0.2em] text-gold-400">AVATAR</span>
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Witness your metamorphosis. Drag the slider to reveal your sophisticated digital persona, crafted for the finest menswear experience.
+              <p className="text-base md:text-lg text-platinum-200 leading-relaxed font-light">
+                Witness your metamorphosis. Drag the slider to reveal your sophisticated digital persona, meticulously crafted for the finest menswear experience.
               </p>
             </div>
             
             {isGenerating && (
-              <div className="flex items-center gap-4 text-xl text-gold-500 font-serif mt-8 glass-panel p-4 rounded-xl">
+              <div className="flex items-center gap-4 text-lg gold-accent font-serif mt-10 glass-luxury p-6 rounded-2xl luxury-glow">
                 <Spinner />
-                <span>Crafting your luxury avatar...</span>
+                <span>Crafting your bespoke avatar...</span>
               </div>
             )}
 
             {error && 
-              <div className="text-center md:text-left text-red-400 max-w-md mt-8 glass-panel p-6 rounded-xl border border-red-500/30">
-                <p className="font-bold text-lg mb-2">Transformation Interrupted</p>
+              <div className="text-center md:text-left text-red-300 max-w-md mt-10 glass-luxury p-6 rounded-2xl border border-red-400/30 luxury-glow">
+                <p className="font-serif font-bold text-lg mb-3">Transformation Interrupted</p>
                 <p className="text-base mb-4">{error}</p>
-                <button onClick={reset} className="text-base font-semibold text-gold-500 hover:text-gold-400 transition-colors">Retry Transformation</button>
+                <button onClick={reset} className="text-base font-semibold gold-accent hover:text-gold-300 transition-colors font-serif">Retry Transformation</button>
               </div>
             }
             
@@ -166,29 +170,29 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
                 >
                   <button 
                     onClick={reset}
-                    className="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-white/10 border border-white/20 rounded-xl cursor-pointer hover:bg-white/20 transition-all duration-300 backdrop-blur-md"
+                    className="w-full sm:w-auto px-10 py-4 text-base font-bold luxury-button-secondary rounded-2xl cursor-pointer transition-all duration-300"
                   >
-                    Select Different Image
+                    SELECT DIFFERENT IMAGE
                   </button>
                   <button 
                     onClick={() => onModelFinalized(generatedModelUrl)}
-                    className="w-full sm:w-auto relative inline-flex items-center justify-center px-10 py-4 text-lg font-bold luxury-button rounded-xl cursor-pointer group transition-all duration-300"
+                    className="w-full sm:w-auto relative inline-flex items-center justify-center px-12 py-4 text-base font-bold luxury-button-primary rounded-2xl cursor-pointer group transition-all duration-300"
                   >
-                    Enter Fashion Studio →
+                    ENTER ATELIER →
                   </button>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-          <div className="md:w-1/2 w-full flex items-center justify-center perspective-container">
+          <div className="md:w-1/2 w-full flex items-center justify-center perspective-luxury">
             <div 
-              className={`relative rounded-3xl transition-all duration-700 ease-in-out luxury-card ${isGenerating ? 'border-2 border-gold-500/50 animate-pulse gold-glow' : 'border-2 border-gold-500/30'}`}
+              className={`relative rounded-3xl transition-all duration-700 ease-in-out luxury-card-3d ${isGenerating ? 'border-2 border-gold-500/60 animate-pulse luxury-glow-intense' : 'border-2 border-gold-500/40 luxury-glow'}`}
             >
               <Compare
                 firstImage={userImageUrl}
                 secondImage={generatedModelUrl ?? userImageUrl}
                 slideMode="drag"
-                className="w-[280px] h-[420px] sm:w-[320px] sm:h-[480px] lg:w-[400px] lg:h-[600px] rounded-3xl bg-black/20 shadow-2xl"
+                className="w-[280px] h-[420px] sm:w-[320px] sm:h-[480px] lg:w-[400px] lg:h-[600px] rounded-3xl bg-black/30 shadow-2xl"
               />
             </div>
           </div>

@@ -83,8 +83,8 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
     };
 
   return (
-    <div className="pt-6 border-t border-gray-400/50">
-        <h2 className="text-xl font-serif tracking-wider text-gray-800 mb-3">Wardrobe</h2>
+    <div className="pt-8 border-t border-gold-500/30">
+        <h2 className="text-xl font-serif tracking-[0.1em] text-platinum-100 mb-4 luxury-heading">Atelier Collection</h2>
         <div className="grid grid-cols-3 gap-3">
             {wardrobe.map((item) => {
             const isActive = activeGarmentIds.includes(item.id);
@@ -93,31 +93,31 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
                 key={item.id}
                 onClick={() => handleGarmentClick(item)}
                 disabled={isLoading || isActive}
-                className="relative aspect-square border rounded-lg overflow-hidden transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 group disabled:opacity-60 disabled:cursor-not-allowed"
+                className="relative aspect-square border border-gold-500/30 rounded-xl overflow-hidden transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-500 group disabled:opacity-60 disabled:cursor-not-allowed luxury-card-3d luxury-glow hover:border-gold-500/50"
                 aria-label={`Select ${item.name}`}
                 >
-                <img src={item.url} alt={item.name} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="text-white text-xs font-bold text-center p-1">{item.name}</p>
+                <img src={item.url} alt={item.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
+                    <p className="text-white text-xs font-bold text-center p-2 font-serif tracking-wide">{item.name}</p>
                 </div>
                 {isActive && (
-                    <div className="absolute inset-0 bg-gray-900/70 flex items-center justify-center">
-                        <CheckCircleIcon className="w-8 h-8 text-white" />
+                    <div className="absolute inset-0 bg-gold-500/80 flex items-center justify-center backdrop-blur-sm">
+                        <CheckCircleIcon className="w-8 h-8 text-black luxury-glow" />
                     </div>
                 )}
                 </button>
             );
             })}
-            <label htmlFor="custom-garment-upload" className={`relative aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center text-gray-500 transition-colors ${isLoading ? 'cursor-not-allowed bg-gray-100' : 'hover:border-gray-400 hover:text-gray-600 cursor-pointer'}`}>
-                <UploadCloudIcon className="w-6 h-6 mb-1"/>
-                <span className="text-xs text-center">Upload</span>
+            <label htmlFor="custom-garment-upload" className={`relative aspect-square border-2 border-dashed border-gold-500/40 rounded-xl flex flex-col items-center justify-center text-platinum-300 transition-colors luxury-card-3d ${isLoading ? 'cursor-not-allowed bg-black/20' : 'hover:border-gold-500/60 hover:text-gold-400 cursor-pointer luxury-glow'}`}>
+                <UploadCloudIcon className="w-7 h-7 mb-2"/>
+                <span className="text-xs text-center font-serif tracking-wide">Upload</span>
                 <input id="custom-garment-upload" type="file" className="hidden" accept="image/png, image/jpeg, image/webp, image/avif, image/heic, image/heif" onChange={handleFileChange} disabled={isLoading}/>
             </label>
         </div>
         {wardrobe.length === 0 && (
-             <p className="text-center text-sm text-gray-500 mt-4">Your uploaded garments will appear here.</p>
+             <p className="text-center text-sm text-platinum-300 mt-6 font-serif italic">Your bespoke pieces will appear here.</p>
         )}
-        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+        {error && <p className="text-red-300 text-sm mt-4 p-3 glass-luxury rounded-xl border border-red-400/30">{error}</p>}
     </div>
   );
 };
