@@ -5,40 +5,28 @@
     <title>Virtual Try-On</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Import maps for React + framer-motion -->
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@18",
-          "react-dom/client": "https://esm.sh/react-dom@18/client",
-          "framer-motion": "https://esm.sh/framer-motion@10"
-        }
-      }
-    </script>
+    <!-- React + ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/framer-motion/dist/framer-motion.umd.js"></script>
+    <!-- Babel standalone to transpile JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body class="w-screen h-screen">
     <div id="root" class="w-full h-full"></div>
 
-    <script type="module">
-      import React, { useState } from "react";
-      import ReactDOM from "react-dom/client";
-      import { AnimatePresence, motion } from "framer-motion";
+    <!-- Write JSX directly with Babel -->
+    <script type="text/babel" data-type="module">
+      const { useState } = React;
+      const { AnimatePresence, motion } = window['framer-motion'];
 
-      // Simple Spinner component
       const Spinner = () => (
         <div className="animate-spin h-8 w-8 border-4 border-gray-400 border-t-transparent rounded-full"></div>
       );
 
-      // Minimal placeholder icons (instead of local ./icons)
-      const RotateCcwIcon = ({ className }) => (
-        <span className={className}>🔄</span>
-      );
-      const ChevronLeftIcon = ({ className }) => (
-        <span className={className}>⬅️</span>
-      );
-      const ChevronRightIcon = ({ className }) => (
-        <span className={className}>➡️</span>
-      );
+      const RotateCcwIcon = ({ className }) => <span className={className}>🔄</span>;
+      const ChevronLeftIcon = ({ className }) => <span className={className}>⬅️</span>;
+      const ChevronRightIcon = ({ className }) => <span className={className}>➡️</span>;
 
       const Canvas = ({
         displayImageUrl,
@@ -54,26 +42,15 @@
 
         const handlePreviousPose = () => {
           if (isLoading || availablePoseKeys.length <= 1) return;
-
           const currentPoseInstruction = poseInstructions[currentPoseIndex];
-          const currentIndexInAvailable =
-            availablePoseKeys.indexOf(currentPoseInstruction);
-
+          const currentIndexInAvailable = availablePoseKeys.indexOf(currentPoseInstruction);
           if (currentIndexInAvailable === -1) {
-            onSelectPose(
-              (currentPoseIndex - 1 + poseInstructions.length) %
-                poseInstructions.length
-            );
+            onSelectPose((currentPoseIndex - 1 + poseInstructions.length) % poseInstructions.length);
             return;
           }
-
-          const prevIndexInAvailable =
-            (currentIndexInAvailable - 1 + availablePoseKeys.length) %
-            availablePoseKeys.length;
+          const prevIndexInAvailable = (currentIndexInAvailable - 1 + availablePoseKeys.length) % availablePoseKeys.length;
           const prevPoseInstruction = availablePoseKeys[prevIndexInAvailable];
-          const newGlobalPoseIndex =
-            poseInstructions.indexOf(prevPoseInstruction);
-
+          const newGlobalPoseIndex = poseInstructions.indexOf(prevPoseInstruction);
           if (newGlobalPoseIndex !== -1) {
             onSelectPose(newGlobalPoseIndex);
           }
@@ -81,28 +58,21 @@
 
         const handleNextPose = () => {
           if (isLoading) return;
-
           const currentPoseInstruction = poseInstructions[currentPoseIndex];
-          const currentIndexInAvailable =
-            availablePoseKeys.indexOf(currentPoseInstruction);
-
+          const currentIndexInAvailable = availablePoseKeys.indexOf(currentPoseInstruction);
           if (currentIndexInAvailable === -1 || availablePoseKeys.length === 0) {
             onSelectPose((currentPoseIndex + 1) % poseInstructions.length);
             return;
           }
-
           const nextIndexInAvailable = currentIndexInAvailable + 1;
           if (nextIndexInAvailable < availablePoseKeys.length) {
-            const nextPoseInstruction =
-              availablePoseKeys[nextIndexInAvailable];
-            const newGlobalPoseIndex =
-              poseInstructions.indexOf(nextPoseInstruction);
+            const nextPoseInstruction = availablePoseKeys[nextIndexInAvailable];
+            const newGlobalPoseIndex = poseInstructions.indexOf(nextPoseInstruction);
             if (newGlobalPoseIndex !== -1) {
               onSelectPose(newGlobalPoseIndex);
             }
           } else {
-            const newGlobalPoseIndex =
-              (currentPoseIndex + 1) % poseInstructions.length;
+            const newGlobalPoseIndex = (currentPoseIndex + 1) % poseInstructions.length;
             onSelectPose(newGlobalPoseIndex);
           }
         };
@@ -112,27 +82,24 @@
             {/* Start Over Button */}
             <button
               onClick={onStartOver}
-              className="absolute top-4 left-4 z-30 flex items-center justify-center text-center bg-white/60 border border-gray-300/80 text-gray-700 font-semibold py-2 px-4 rounded-full transition-all duration-200 ease-in-out hover:bg-white hover:border-gray-400 active:scale-95 text-sm backdrop-blur-sm"
+              className="absolute top-4 left-4 z-30 flex items-center justify-center text-center bg-white/60 border border-gray-300/80 text-gray-700 font-semibold py-2 px-4 rounded-full hover:bg-white hover:border-gray-400 active:scale-95 text-sm backdrop-blur-sm"
             >
               <RotateCcwIcon className="w-4 h-4 mr-2" />
               Start Over
             </button>
 
-            {/* Image Display or Placeholder */}
+            {/* Image Display */}
             <div className="relative w-full h-full flex items-center justify-center">
               {displayImageUrl ? (
                 <img
-                  key={displayImageUrl}
                   src={displayImageUrl}
                   alt="Virtual try-on model"
-                  className="max-w-full max-h-full object-contain transition-opacity duration-500 animate-fade-in rounded-lg"
+                  className="max-w-full max-h-full object-contain rounded-lg"
                 />
               ) : (
                 <div className="w-[400px] h-[600px] bg-gray-100 border border-gray-200 rounded-lg flex flex-col items-center justify-center">
                   <Spinner />
-                  <p className="text-md font-serif text-gray-600 mt-4">
-                    Loading Model...
-                  </p>
+                  <p className="text-md font-serif text-gray-600 mt-4">Loading Model...</p>
                 </div>
               )}
 
@@ -146,9 +113,7 @@
                   >
                     <Spinner />
                     {loadingMessage && (
-                      <p className="text-lg font-serif text-gray-700 mt-4 text-center px-4">
-                        {loadingMessage}
-                      </p>
+                      <p className="text-lg font-serif text-gray-700 mt-4 text-center px-4">{loadingMessage}</p>
                     )}
                   </motion.div>
                 )}
@@ -189,26 +154,13 @@
                 </AnimatePresence>
 
                 <div className="flex items-center justify-center gap-2 bg-white/60 backdrop-blur-md rounded-full p-2 border border-gray-300/50">
-                  <button
-                    onClick={handlePreviousPose}
-                    aria-label="Previous pose"
-                    className="p-2 rounded-full hover:bg-white/80 active:scale-90 transition-all disabled:opacity-50"
-                    disabled={isLoading}
-                  >
+                  <button onClick={handlePreviousPose} disabled={isLoading} className="p-2 rounded-full hover:bg-white/80">
                     <ChevronLeftIcon className="w-5 h-5 text-gray-800" />
                   </button>
-                  <span
-                    className="text-sm font-semibold text-gray-800 w-48 text-center truncate"
-                    title={poseInstructions[currentPoseIndex]}
-                  >
+                  <span className="text-sm font-semibold text-gray-800 w-48 text-center truncate">
                     {poseInstructions[currentPoseIndex]}
                   </span>
-                  <button
-                    onClick={handleNextPose}
-                    aria-label="Next pose"
-                    className="p-2 rounded-full hover:bg-white/80 active:scale-90 transition-all disabled:opacity-50"
-                    disabled={isLoading}
-                  >
+                  <button onClick={handleNextPose} disabled={isLoading} className="p-2 rounded-full hover:bg-white/80">
                     <ChevronRightIcon className="w-5 h-5 text-gray-800" />
                   </button>
                 </div>
@@ -231,11 +183,7 @@
         />
       );
 
-      ReactDOM.createRoot(document.getElementById("root")).render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
     </script>
   </body>
 </html>
