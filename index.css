@@ -361,6 +361,41 @@ body::after {
   animation: pulse-gold 2s ease-in-out infinite;
 }
 
+@keyframes pulse-gold {
+  0%, 100% { 
+    box-shadow: 
+      0 0 40px rgba(241, 169, 78, 0.6),
+      0 0 80px rgba(241, 169, 78, 0.4),
+      0 0 120px rgba(241, 169, 78, 0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 0 60px rgba(241, 169, 78, 0.8),
+      0 0 120px rgba(241, 169, 78, 0.6),
+      0 0 180px rgba(241, 169, 78, 0.3);
+  }
+}
+
+/* Color Palette Classes */
+.text-platinum-100 { color: #f7f7f7; }
+.text-platinum-200 { color: #e5e5e5; }
+.text-platinum-300 { color: #d1d1d1; }
+.text-platinum-400 { color: #b8b8b8; }
+.bg-gold-500 { background-color: #f1a94e; }
+.border-gold-500\/20 { border-color: rgba(241, 169, 78, 0.2); }
+.border-gold-500\/30 { border-color: rgba(241, 169, 78, 0.3); }
+.border-gold-500\/40 { border-color: rgba(241, 169, 78, 0.4); }
+.border-gold-500\/50 { border-color: rgba(241, 169, 78, 0.5); }
+.text-gold-400 { color: #f1a94e; }
+.text-gold-300 { color: #f4b968; }
+
+@keyframes rotate3d {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  25% { transform: rotateX(5deg) rotateY(90deg); }
+  50% { transform: rotateX(0deg) rotateY(180deg); }
+  75% { transform: rotateX(-5deg) rotateY(270deg); }
+  100% { transform: rotateX(0deg) rotateY(360deg); }
+}
 /* Responsive Design Enhancements */
 @media (max-width: 768px) {
   .luxury-card-3d:hover {
